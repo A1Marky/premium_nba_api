@@ -186,3 +186,7 @@ GET /player/consistency/2544/PTS?season=2023-24
 ```
 GET /player/matchup-history/201939/1610612747?last_n_matchups=5
 ```
+
+# Documentation links will be available at:
+https://premium-nba-api.onrender.com/docs
+https://premium-nba-api.onrender.com/redoc
