@@ -1,13 +1,29 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+from typing import Optional
+import os
+from dotenv import load_dotenv
 from data.data_loader import NBADataLoader
 from utils.hit_rate_calculator import HitRateCalculator
 from utils.prop_analyzer import PropAnalyzer
-from typing import Optional
+
+# Load environment variables
+load_dotenv()
 
 app = FastAPI(
     title="NBA Stats API",
     description="API for retrieving NBA player statistics for projection modeling",
     version="1.0.0"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 @app.get("/")
@@ -242,5 +258,5 @@ async def get_pace_impact(
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8002)
+    port = int(os.getenv("PORT", 8002))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
