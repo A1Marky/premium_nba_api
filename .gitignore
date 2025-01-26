@@ -1,0 +1,9 @@
+__pycache__
+*.pyd
+*.pyc
+*.pyo
+*.exp
+*.lib
+*.obj
+*.venv
+*.env
